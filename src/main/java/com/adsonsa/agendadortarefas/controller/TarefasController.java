@@ -2,6 +2,7 @@ package com.adsonsa.agendadortarefas.controller;
 
 import com.adsonsa.agendadortarefas.business.TarefasService;
 import com.adsonsa.agendadortarefas.business.dto.TarefasDTO;
+import com.adsonsa.agendadortarefas.infrastructure.enums.StatusNotificacaoEnums;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
@@ -36,4 +37,22 @@ public class TarefasController {
     public ResponseEntity<List<TarefasDTO>> buscaTarefaPorEmail(@RequestHeader("Authorization") String token) {
         return ResponseEntity.ok(tarefaService.buscaTarefaPorEmail(token));
     }
+    // Deletar por id
+    @DeleteMapping
+    public ResponseEntity<Void> deletarTarefaPorId(@RequestParam("id") String id) {
+        tarefaService.deletarTarefaPorId(id);
+        return ResponseEntity.ok().build();
+    }
+    // medotodo de alterar  tarefas
+    @PatchMapping
+    public ResponseEntity<TarefasDTO> alterarStatusNotificacao(@RequestParam("status") StatusNotificacaoEnums Status,
+                                                               @RequestParam("id") String id) {
+        return ResponseEntity.ok(tarefaService.alteraStatus(id,Status));
+    }
+    // metodo de alterar tarefas Put
+    @PutMapping
+    public ResponseEntity<TarefasDTO> updateTarefas(@RequestBody TarefasDTO dto, @RequestParam("id") String id) {
+        return ResponseEntity.ok(tarefaService.updateTarefas(id,dto));
+    }
 }
+
