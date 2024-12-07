@@ -1,5 +1,5 @@
 package com.adsonsa.agendadortarefas.infrastructure.enums;
 
-public enum StatusNotificacaoEnums {
+public enum StatusNotificacaoEnum {
     PENDENTE, NOTIFICADO, CANCELADO
 }

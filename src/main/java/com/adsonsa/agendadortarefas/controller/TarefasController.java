@@ -2,7 +2,7 @@ package com.adsonsa.agendadortarefas.controller;
 
 import com.adsonsa.agendadortarefas.business.TarefasService;
 import com.adsonsa.agendadortarefas.business.dto.TarefasDTO;
-import com.adsonsa.agendadortarefas.infrastructure.enums.StatusNotificacaoEnums;
+import com.adsonsa.agendadortarefas.infrastructure.enums.StatusNotificacaoEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
@@ -45,7 +45,7 @@ public class TarefasController {
     }
     // medotodo de alterar  tarefas
     @PatchMapping
-    public ResponseEntity<TarefasDTO> alterarStatusNotificacao(@RequestParam("status") StatusNotificacaoEnums Status,
+    public ResponseEntity<TarefasDTO> alterarStatusNotificacao(@RequestParam("status") StatusNotificacaoEnum Status,
                                                                @RequestParam("id") String id) {
         return ResponseEntity.ok(tarefaService.alteraStatus(id,Status));
     }

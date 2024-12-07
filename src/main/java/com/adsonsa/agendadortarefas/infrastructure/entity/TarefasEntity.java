@@ -1,6 +1,6 @@
 package com.adsonsa.agendadortarefas.infrastructure.entity;
 
-import com.adsonsa.agendadortarefas.infrastructure.enums.StatusNotificacaoEnums;
+import com.adsonsa.agendadortarefas.infrastructure.enums.StatusNotificacaoEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,5 +26,5 @@ public class TarefasEntity {
     private String emailUsuario;
     private LocalDateTime dataAlteracao;
 
-    private StatusNotificacaoEnums statusNotificacao;
+    private StatusNotificacaoEnum statusNotificacao;
 }

@@ -4,7 +4,7 @@ import com.adsonsa.agendadortarefas.business.dto.TarefasDTO;
 import com.adsonsa.agendadortarefas.business.mapper.TarefaUpdateConverter;
 import com.adsonsa.agendadortarefas.business.mapper.TarefasConverter;
 import com.adsonsa.agendadortarefas.infrastructure.entity.TarefasEntity;
-import com.adsonsa.agendadortarefas.infrastructure.enums.StatusNotificacaoEnums;
+import com.adsonsa.agendadortarefas.infrastructure.enums.StatusNotificacaoEnum;
 import com.adsonsa.agendadortarefas.infrastructure.exceptions.ResoucerNotFoundException;
 import com.adsonsa.agendadortarefas.infrastructure.repository.TarefasRepository;
 import com.adsonsa.agendadortarefas.infrastructure.security.JwtUtil;
@@ -30,7 +30,7 @@ public class TarefasService {
         // usuario setando a dataCriacao
         dto.setDataCriacao(LocalDateTime.now());
         // usuario setando o status
-        dto.setStatusNotificacao(StatusNotificacaoEnums.PENDENTE);
+        dto.setStatusNotificacao(StatusNotificacaoEnum.PENDENTE);
         dto.setEmailUsuario(email);
         TarefasEntity entity = tarefaConverter.paraTarefaEntity(dto);
         return tarefaConverter.paraTarefaDTO(
@@ -42,7 +42,7 @@ public class TarefasService {
     public List<TarefasDTO> buscarTarefaAgendadasPorPeriodo(LocalDateTime dataInicial, LocalDateTime dataFinal) {
 
         return tarefaConverter.paraListTarefaDTO(
-                tarefasRepository.findByDataEventoBetween(dataInicial, dataFinal));
+                tarefasRepository.findByDataEventoBetweenAndStatusNotificacao(dataInicial, dataFinal, StatusNotificacaoEnum.PENDENTE));
     }
     // metodo para deletar por email
     public List<TarefasDTO> buscaTarefaPorEmail(String token) {
@@ -64,7 +64,7 @@ public class TarefasService {
         }
     }
 
-    public TarefasDTO alteraStatus(String id, StatusNotificacaoEnums status) {
+    public TarefasDTO alteraStatus(String id, StatusNotificacaoEnum status) {
         try {
             TarefasEntity entity = tarefasRepository.findById(id)
                     .orElseThrow(() -> new ResoucerNotFoundException("Tarefa nao encontrada" + id));
